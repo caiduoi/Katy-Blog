@@ -82,6 +82,19 @@ describe "AuthenticationPages" do
           it { should have_title('Sign in') }
         end
       end
+      
+      describe "in the Entries controller" do
+
+        describe "submitting to the create action" do
+          before { post entries_path }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete entry_path(FactoryGirl.create(:entry)) }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+      end
     end
     
     describe "as wrong user" do

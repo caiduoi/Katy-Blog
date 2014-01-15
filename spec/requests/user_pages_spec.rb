@@ -69,10 +69,21 @@ describe "UserPages" do
   #############################################################################
   describe "profile page" do
     let(:user) { FactoryGirl.create(:user) } # Replace with code to make a user variable
+    let!(:e1) { FactoryGirl.create(:entry, user: user, title: "Entry Title 1", body: "Entry Body 1") }
+    let!(:e2) { FactoryGirl.create(:entry, user: user, title: "Entry Title 2", body: "Entry Body 2") }
+    
     before { visit user_path(user) }
   
     it { should have_content(user.name) }
     it { should have_title(user.name) }
+    
+    describe "entries" do
+      it { should have_content(e1.title) }
+      it { should have_content(e2.title) }
+      it { should have_content(e1.body) }
+      it { should have_content(e2.body) }
+      it { should have_content(user.entries.count) }
+    end
   end
   
   #############################################################################

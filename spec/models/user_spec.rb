@@ -14,6 +14,8 @@ describe User do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:entries) }
+  it { should respond_to(:feed) }
   
   it { should be_valid }
 
@@ -104,6 +106,41 @@ describe User do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
+  end
+  
+  ########### Entry ##############
+  describe "entry associations" do
+
+    before { @user.save }
+    let!(:older_entry) do
+      FactoryGirl.create(:entry, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_entry) do
+      FactoryGirl.create(:entry, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right entries in the right order" do
+      expect(@user.entries.to_a).to eq [newer_entry, older_entry]
+    end
+    
+    it "should destroy associated entries" do
+      entries = @user.entries.to_a
+      @user.destroy
+      expect(entries).not_to be_empty
+      entries.each do |entry|
+        expect(Entry.where(id: entry.id)).to be_empty
+      end
+    end
+    
+    describe "status" do
+      let(:unfollowed_post) do
+        FactoryGirl.create(:entry, user: FactoryGirl.create(:user))
+      end
+
+      its(:feed) { should include(newer_entry) }
+      its(:feed) { should include(older_entry) }
+      its(:feed) { should_not include(unfollowed_post) }
+    end
   end
 
 end

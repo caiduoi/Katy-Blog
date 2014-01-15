@@ -11,6 +11,22 @@ describe "StaticPages" do
     
     it { should have_content('Home') }
     it { should have_title(full_title('Home')) }
+    
+    describe "for signed-in users" do
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+        FactoryGirl.create(:entry, user: user, title: "Entry Title 1", body: "Entry Body 1") 
+        FactoryGirl.create(:entry, user: user, title: "Entry Title 2", body: "Entry Body 2")
+        sign_in user
+        visit root_path
+      end
+
+      it "should render the user's feed" do
+        user.feed.each do |item|
+          expect(page).to have_selector("li##{item.id}", text: item.title, text: body)
+        end
+      end
+    end
   end
   
   describe "Help page" do
