@@ -1,5 +1,5 @@
 class Comment < ActiveRecord::Base
-  attr_accessor :content
+
   belongs_to :user
   belongs_to :entry
   

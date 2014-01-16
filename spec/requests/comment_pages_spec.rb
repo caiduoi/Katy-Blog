@@ -9,16 +9,15 @@ describe "Comment pages" do
   before { sign_in user }
 
   describe "comment creation" do
-    before { visit entry_path(entry) }
+    before { visit entry_path(FactoryGirl.create(:entry)) }
 
-    describe "with invalid information" do
-
+    describe "with invalid information" do #Xem hàm create (ko lưu đc)
       it "should not create a comment" do
-        expect { click_button "Post" }.not_to change(Comment, :count)
+        expect { click_button submit }.not_to change(Comment, :count)
       end
-
+      
       describe "error messages" do
-        before { click_button "Post" }
+        before { click_button submit }
         it { should have_content('error') }
       end
     end

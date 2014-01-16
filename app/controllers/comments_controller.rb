@@ -8,8 +8,7 @@ class CommentsController < ApplicationController
       flash[:success] = "Commented!"
       redirect_to @comment.entry
     else
-      @feed_items = []
-      render 'static_pages/home'
+      render @comment.entry
     end
   end
   
