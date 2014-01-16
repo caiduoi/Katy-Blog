@@ -23,7 +23,11 @@ describe "EntryPages" do
 
     describe "with valid information" do
 
-      before { fill_in 'entry_content', with: "Lorem ipsum" }
+      before { 
+        fill_in 'Title', with: "Title" 
+        fill_in 'Body',  with: "Body"
+      }
+      
       it "should create a entry" do
         expect { click_button "Post" }.to change(Entry, :count).by(1)
       end

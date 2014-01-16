@@ -1,7 +1,13 @@
 Vblog::Application.routes.draw do
-  resources :users
-  resources :sessions, only: [:new, :create, :destroy]
-  resources :entries, only: [:create, :destroy]
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+  resources :sessions,      only: [:new, :create, :destroy]
+  resources :entries,       only: [:create, :destroy, :show]
+  resources :relationships, only: [:create, :destroy]
+  resources :comments,      only: [:create, :destroy, :show]
   
   root "static_pages#home"
   

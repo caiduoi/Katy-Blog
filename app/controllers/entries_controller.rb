@@ -12,6 +12,16 @@ class EntriesController < ApplicationController
       render 'static_pages/home'
     end
   end
+  
+  def show
+    @entry = Entry.find(params[:id])
+    @user = @entry.user
+    @comments = @entry.comments.paginate(page: params[:page], :per_page => 3)
+    
+    if signed_in?
+      @comment = @entry.comments.build(user: current_user)
+    end
+  end
 
   def destroy
     @entry.destroy

@@ -1,0 +1,47 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    </section>
+    <section>
+        <%= render 'shared/stats' %>
+    </section>
+    
+  </aside>
+  
+  <div class="span8">
+      <h3><%= @entry.title %></h3>
+      <p><%= @entry.body %></p>
+      <span class="timestamp">
+        Posted <%= time_ago_in_words(@entry.created_at) %> ago.
+      </span>
+      <% if current_user?(@entry.user)%>
+        <%= link_to "delete", @entry, method: :delete,
+                                     data: { confirm: "You sure?" },
+                                     title: @entry.title %>
+      <% end %>
+      
+      <div class="span8">
+        <% if @entry.comments.any? %>
+          <p>Comments (<%= @entry.comments.count %>)</p>
+          <ol class="comments">
+            <%= render @comments %>
+          </ol>
+          <%= will_paginate @comments %>
+        <% end %>
+      </div>
+      
+      <% if signed_in? %>
+      <aside class="span4">
+        <section>
+            <%= render 'shared/comment_form' %>
+        </section>
+      </aside>
+      <% end %>
+  </div>
+  
+</div>

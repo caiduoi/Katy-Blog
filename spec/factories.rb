@@ -12,4 +12,10 @@ FactoryGirl.define do
     user
   end
   
+  factory :comment do
+    content "Comment"
+    user
+    entry
+  end
+  
 end

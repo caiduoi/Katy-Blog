@@ -45,4 +45,9 @@ module SessionsHelper
   def store_location
     session[:return_to] = request.url if request.get?
   end
+  
+  def current_entry= user 
+    @current_entry = user
+  end
+  
 end
