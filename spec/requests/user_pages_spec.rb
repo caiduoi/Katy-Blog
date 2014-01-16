@@ -21,11 +21,6 @@ describe "UserPages" do
 
       it { should have_selector('div.pagination') }
 
-      # it "should list each user" do
-        # User.paginate(page: 1).each do |user|
-          # expect(page).to have_selector('li', text: user.name)
-        # end
-      # end
     end
   end
 
@@ -37,13 +32,13 @@ describe "UserPages" do
     
     let(:submit) { "Create my account" }
 
-    describe "with invalid information" do #Xem hàm create (ko lưu đc)
+    describe "with invalid information" do
       it "should not create a user" do
         expect { click_button submit }.not_to change(User, :count)
       end
     end
 
-    describe "with valid information" do #Xem hàm create (lưu đc)
+    describe "with valid information" do
       before do
         fill_in "Name",         with: "Example User"
         fill_in "Email",        with: "user@example.com"
@@ -66,9 +61,8 @@ describe "UserPages" do
     end
   end
   
-  #############################################################################
   describe "profile page" do
-    let(:user) { FactoryGirl.create(:user) } # Replace with code to make a user variable
+    let(:user) { FactoryGirl.create(:user) } 
     let!(:e1) { FactoryGirl.create(:entry, user: user, title: "Entry Title 1", body: "Entry Body 1") }
     let!(:e2) { FactoryGirl.create(:entry, user: user, title: "Entry Title 2", body: "Entry Body 2") }
     

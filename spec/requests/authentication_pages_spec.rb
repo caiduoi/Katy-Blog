@@ -43,7 +43,6 @@ describe "AuthenticationPages" do
     end
   end
   
-  ############
   describe "authorization" do
 
     describe "for non-signed-in users" do

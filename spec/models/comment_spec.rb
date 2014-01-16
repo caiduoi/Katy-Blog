@@ -4,7 +4,6 @@ describe Comment do
   let(:user) { FactoryGirl.create(:user) }
   let(:entry) { FactoryGirl.create(:entry) }
   before do
-    # This code is not idiomatically correct.
     @comment = Comment.new(content: "New Comment", user_id: user.id, entry_id: entry.id)
   end
 

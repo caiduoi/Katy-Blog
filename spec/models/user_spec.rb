@@ -27,7 +27,6 @@ describe User do
   
   it { should be_valid }
 
-  ############ name ###############
   describe "when name is not present" do
     before { @user.name = " " }
     it { should_not be_valid }
@@ -38,7 +37,6 @@ describe User do
     it { should_not be_valid }
   end
   
-  ############# Email ##############
   describe "when email is not present" do
     before { @user.email = " " }
     it { should_not be_valid }
@@ -75,7 +73,6 @@ describe User do
     it { should_not be_valid }
   end
   
-  ########### Pass ############
   describe "when password is not present" do
     before do
       @user = User.new(name: "Example User", email: "user@example.com",
@@ -110,13 +107,11 @@ describe User do
     end
   end
   
-  ########### Token ##############
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
   end
   
-  ########### Entry ##############
   describe "entry associations" do
 
     before { @user.save }
@@ -171,7 +166,6 @@ describe User do
     end
   end
   
-  ######### follow ############
   describe "following" do
     let(:other_user) { FactoryGirl.create(:user) }
     before do
@@ -195,7 +189,6 @@ describe User do
     end
   end
   
-  ######### comment ###########
   describe "comment associations" do
 
     before {

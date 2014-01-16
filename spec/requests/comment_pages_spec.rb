@@ -11,7 +11,7 @@ describe "Comment pages" do
   describe "comment creation" do
     before { visit entry_path(FactoryGirl.create(:entry)) }
 
-    describe "with invalid information" do #Xem hàm create (ko lưu đc)
+    describe "with invalid information" do
       it "should not create a comment" do
         expect { click_button submit }.not_to change(Comment, :count)
       end

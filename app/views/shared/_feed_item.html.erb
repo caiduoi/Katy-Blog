@@ -6,7 +6,9 @@
   <span class="title"><%= link_to feed_item.title, feed_item %></span>
   <span class="body"><%= feed_item.body %></span>
   <span class="timestamp">
-    Posted <%= feed_item.created_at %> ago.  
+    Posted <%= time_ago_in_words(feed_item.created_at) %> ago at 
+        <%= feed_item.created_at.day %>/<%= feed_item.created_at.month %>/
+        <%= feed_item.created_at.year %>. 
   </span>
   <% if current_user?(feed_item.user)%>
     <%= link_to "delete", feed_item, method: :delete,

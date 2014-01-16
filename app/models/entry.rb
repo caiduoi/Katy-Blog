@@ -7,7 +7,6 @@ class Entry < ActiveRecord::Base
   validates :body,    presence: true, length: { maximum: 500 }
   validates :user_id, presence: true
   
-  # Returns entries from the users being followed by the given user.
   def self.from_users_followed_by(user)
     followed_user_ids = "SELECT followed_id FROM relationships
                          WHERE follower_id = :user_id"

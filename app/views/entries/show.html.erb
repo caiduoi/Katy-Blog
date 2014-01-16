@@ -17,7 +17,9 @@
       <h3><%= @entry.title %></h3>
       <p><%= @entry.body %></p>
       <span class="timestamp">
-        Posted <%= time_ago_in_words(@entry.created_at) %> ago.
+        Posted  <%= time_ago_in_words(@entry.created_at) %> ago at 
+                <%= @entry.created_at.day %>/<%= @entry.created_at.month %>/
+                <%= @entry.created_at.year %>.
       </span>
       <% if current_user?(@entry.user)%>
         <%= link_to "delete", @entry, method: :delete,
