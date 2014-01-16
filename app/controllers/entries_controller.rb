@@ -2,6 +2,10 @@ class EntriesController < ApplicationController
   before_action :signed_in_user, only: [:create, :destroy]
   before_action :correct_user,   only: :destroy
 
+  def index
+    @entries = Entry.paginate(page: params[:page], :per_page => 10)
+  end
+
   def create
     @entry = current_user.entries.build(entry_params)
     if @entry.save

@@ -5,7 +5,7 @@ Vblog::Application.routes.draw do
     end
   end
   resources :sessions,      only: [:new, :create, :destroy]
-  resources :entries,       only: [:create, :destroy, :show]
+  resources :entries,       only: [:index, :create, :destroy, :show]
   resources :relationships, only: [:create, :destroy]
   resources :comments,      only: [:create, :destroy, :show]
   
